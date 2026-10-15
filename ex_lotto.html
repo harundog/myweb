@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #ball-container{
+            width: 100vw;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .ball{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            border-radius: 50%;
+            margin: 0 20px;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball-container">
+        
+    </div>
+    <div id="mine"></div>
+    <button id="getNum-btn">번호 받기</button>
+    <button id="result-btn">당첨 번호</button>
+
+    <script>
+        const ball_container = document.getElementById('ball-container');
+        const getNum_btn = document.getElementById('getNum-btn');
+        const result_btn = document.getElementById('result-btn');
+        const mine = document.getElementById('mine');
+
+        getNum_btn.addEventListener('click', function(){
+            mine.textContent = '';
+            const myLotto = makeNum();
+            mine.textContent = myLotto;
+        });
+        
+        result_btn.addEventListener('click', function(){
+            ball_container.textContent = '';
+            
+            let lotto = makeNum();
+            console.log(lotto);
+            for(let i = 0; i < 6; i++){
+                
+                setTimeout(function(){
+                    createBall(lotto[i]);
+                    //마지막 볼 생성 후 비교
+                    if(i === 5){
+                        compareNum(nums, lotto);
+                    }
+                }, 1000*(i + 1));
+            }
+            console.log('********');
+            
+        });
+
+        function compareNum(a, b) {
+            console.log('번호 출력 완료! 이제 비교합니다.');
+            // 배열 비교 로직
+            
+        }
+
+        function makeNum(){
+            const nums = [];
+
+            let rdNum = Math.floor(Math.random() * 6) + 1;
+            nums.push(rdNum);
+            
+            for(let i = 1; i < 6; i++){
+                let flag = true;
+                rdNum = Math.floor(Math.random() * 6) + 1;
+                for(let j = 0; j < i; j++){
+                    if(rdNum === nums[j]){
+                        flag = false;
+                        i--;
+                        break;
+                    }
+                }
+                if(flag){
+                    nums.push(rdNum);
+                }
+            }
+
+            return nums;
+        }
+        function createBall(num){
+      
+            
+            //let num = 0;
+            //num = Math.floor(Math.random() * 6) + 1;
+            const ball = document.createElement('div');
+            ball.classList.add('ball');
+            ball.textContent = num;
+            
+            ball_container.appendChild(ball);
+        }
+
+
+    </script>
+</body>
+</html>
