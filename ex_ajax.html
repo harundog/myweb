@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AJAX</h1>
+    <hr>
+    <div id="demo"></div>
+    <button onclick="loadDoc()">실행</button>
+
+    <script>
+        function loadDoc(){
+            console.log("start....")
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.open("GET", "http://apis.data.go.kr/6480000/gyeongnamcultural/gyeongnamculturallist?serviceKey=Pyi%2FvrDaRbVkZhYz7L6Z%2F9QcbhotPcbif%2F%2FdU2DRPADbyJ4uCXC52I6g3PfLcF%2BTkDkk7caBMMpDt1bLWTLaJg%3D%3D&numOfRows=10&pageNo=1&resultType=json", false);
+            
+            xhttp.onload = function(){
+                console.log("=============");
+                document.getElementById("demo").innerHTML = xhttp.responseText;
+            };
+
+            xhttp.send();
+            console.log("end....");
+        }
+    </script>
+</body>
+</html>
